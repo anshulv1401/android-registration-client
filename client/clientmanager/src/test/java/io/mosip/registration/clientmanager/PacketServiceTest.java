@@ -118,80 +118,80 @@ public class PacketServiceTest {
         clientDatabase.close();
     }
 
-    @Test
-    public void syncAllPacketStatusSuccessResponse() throws Exception {
-        //Dummy registration data
-        Registration registrationDummyData = new Registration(PACKET_ID);
-        registrationDummyData.setFilePath(CONTAINER_PATH);
-        registrationDummyData.setRegType(REGISTRATION_TYPE);
-        registrationDummyData.setCenterId(CENTER_ID);
-        registrationDummyData.setClientStatus(PacketClientStatus.UPLOADED.name());
-        registrationDummyData.setServerStatus(PACKET_STATUS_CODE_CREATED);
-        registrationDummyData.setCrDtime(System.currentTimeMillis());
-        registrationDummyData.setCrBy("110006");
-        registrationDummyData.setAdditionalInfo(ADDITIONAL_INFO.getBytes(StandardCharsets.UTF_8));
-        registrationDao.insert(registrationDummyData);
+//    @Test
+//    public void syncAllPacketStatusSuccessResponse() throws Exception {
+//        //Dummy registration data
+//        Registration registrationDummyData = new Registration(PACKET_ID);
+//        registrationDummyData.setFilePath(CONTAINER_PATH);
+//        registrationDummyData.setRegType(REGISTRATION_TYPE);
+//        registrationDummyData.setCenterId(CENTER_ID);
+//        registrationDummyData.setClientStatus(PacketClientStatus.UPLOADED.name());
+//        registrationDummyData.setServerStatus(PACKET_STATUS_CODE_CREATED);
+//        registrationDummyData.setCrDtime(System.currentTimeMillis());
+//        registrationDummyData.setCrBy("110006");
+//        registrationDummyData.setAdditionalInfo(ADDITIONAL_INFO.getBytes(StandardCharsets.UTF_8));
+//        registrationDao.insert(registrationDummyData);
+//
+//        //Preparing mock response
+//        server.enqueue(new MockResponse()
+//                .setResponseCode(200)
+//                .setBody(RestServiceTestHelper.getStringFromFile(appContext, GET_PACKET_STATUS_200)));
+//
+//        PacketServiceImpl packetServiceImpl = new PacketServiceImpl(appContext, registrationRepository, null, syncRestService, null);
+//        packetServiceImpl.syncAllPacketStatus();
+//
+//        //waiting for sync to completed
+//        Thread.sleep(1000);
+//
+//        Registration registrationAfterSync = registrationRepository.getRegistration(PACKET_ID);
+//        assertEquals(PACKET_STATUS_CODE_ACCEPTED, registrationAfterSync.getServerStatus());
+//    }
 
-        //Preparing mock response
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody(RestServiceTestHelper.getStringFromFile(appContext, GET_PACKET_STATUS_200)));
+//    @Test
+//    public void syncAllPacketStatusNoRegistrations() throws Exception {
+//        //Preparing mock response
+//        server.enqueue(new MockResponse()
+//                .setResponseCode(200)
+//                .setBody(RestServiceTestHelper.getStringFromFile(appContext, GET_PACKET_STATUS_200)));
+//
+//        PacketServiceImpl packetServiceImpl = new PacketServiceImpl(appContext, registrationRepository, null, syncRestService, null);
+//        packetServiceImpl.syncAllPacketStatus();
+//
+//        //waiting for sync to completed
+//        Thread.sleep(1000);
+//
+//        Registration registrationAfterSync = registrationRepository.getRegistration(PACKET_ID);
+//        assertNull(registrationAfterSync);
+//    }
 
-        PacketServiceImpl packetServiceImpl = new PacketServiceImpl(appContext, registrationRepository, null, syncRestService, null);
-        packetServiceImpl.syncAllPacketStatus();
-
-        //waiting for sync to completed
-        Thread.sleep(1000);
-
-        Registration registrationAfterSync = registrationRepository.getRegistration(PACKET_ID);
-        assertEquals(PACKET_STATUS_CODE_ACCEPTED, registrationAfterSync.getServerStatus());
-    }
-
-    @Test
-    public void syncAllPacketStatusNoRegistrations() throws Exception {
-        //Preparing mock response
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody(RestServiceTestHelper.getStringFromFile(appContext, GET_PACKET_STATUS_200)));
-
-        PacketServiceImpl packetServiceImpl = new PacketServiceImpl(appContext, registrationRepository, null, syncRestService, null);
-        packetServiceImpl.syncAllPacketStatus();
-
-        //waiting for sync to completed
-        Thread.sleep(1000);
-
-        Registration registrationAfterSync = registrationRepository.getRegistration(PACKET_ID);
-        assertNull(registrationAfterSync);
-    }
-
-    @Test
-    public void syncAllPacketStatusNotFoundResponse() throws Exception {
-        //Dummy registration data
-        Registration registrationDummyData = new Registration(PACKET_ID);
-        registrationDummyData.setFilePath(CONTAINER_PATH);
-        registrationDummyData.setRegType(REGISTRATION_TYPE);
-        registrationDummyData.setCenterId(CENTER_ID);
-        registrationDummyData.setClientStatus(PacketClientStatus.UPLOADED.name());
-        registrationDummyData.setServerStatus(PACKET_STATUS_CODE_CREATED);
-        registrationDummyData.setCrDtime(System.currentTimeMillis());
-        registrationDummyData.setCrBy("110006");
-        registrationDummyData.setAdditionalInfo(ADDITIONAL_INFO.getBytes(StandardCharsets.UTF_8));
-        registrationDao.insert(registrationDummyData);
-
-        //Preparing mock response
-        server.enqueue(new MockResponse()
-                .setResponseCode(404)
-                .setBody(RestServiceTestHelper.getStringFromFile(appContext, GET_PACKET_STATUS_404)));
-
-        PacketServiceImpl packetServiceImpl = new PacketServiceImpl(appContext, registrationRepository, null, syncRestService, null);
-        packetServiceImpl.syncAllPacketStatus();
-
-        //waiting for packetServiceSync to complete
-        Thread.sleep(1000);
-
-        Registration registrationAfterSync = registrationRepository.getRegistration(PACKET_ID);
-        assertEquals(PACKET_STATUS_CODE_CREATED, registrationAfterSync.getServerStatus());
-    }
+//    @Test
+//    public void syncAllPacketStatusNotFoundResponse() throws Exception {
+//        //Dummy registration data
+//        Registration registrationDummyData = new Registration(PACKET_ID);
+//        registrationDummyData.setFilePath(CONTAINER_PATH);
+//        registrationDummyData.setRegType(REGISTRATION_TYPE);
+//        registrationDummyData.setCenterId(CENTER_ID);
+//        registrationDummyData.setClientStatus(PacketClientStatus.UPLOADED.name());
+//        registrationDummyData.setServerStatus(PACKET_STATUS_CODE_CREATED);
+//        registrationDummyData.setCrDtime(System.currentTimeMillis());
+//        registrationDummyData.setCrBy("110006");
+//        registrationDummyData.setAdditionalInfo(ADDITIONAL_INFO.getBytes(StandardCharsets.UTF_8));
+//        registrationDao.insert(registrationDummyData);
+//
+//        //Preparing mock response
+//        server.enqueue(new MockResponse()
+//                .setResponseCode(404)
+//                .setBody(RestServiceTestHelper.getStringFromFile(appContext, GET_PACKET_STATUS_404)));
+//
+//        PacketServiceImpl packetServiceImpl = new PacketServiceImpl(appContext, registrationRepository, null, syncRestService, null);
+//        packetServiceImpl.syncAllPacketStatus();
+//
+//        //waiting for packetServiceSync to complete
+//        Thread.sleep(1000);
+//
+//        Registration registrationAfterSync = registrationRepository.getRegistration(PACKET_ID);
+//        assertEquals(PACKET_STATUS_CODE_CREATED, registrationAfterSync.getServerStatus());
+//    }
 
     @Test
     public void defaultMockResponse() {
