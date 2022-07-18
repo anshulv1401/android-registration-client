@@ -26,6 +26,7 @@ import io.mosip.registration.clientmanager.repository.GlobalParamRepository;
 @RunWith(RobolectricTestRunner.class)
 public class GlobalParamTest {
 
+    //Comment added again
     private static final String GLOBAL_PARAM_STRING_ID = "mosip.lang-code";
     private static final String GLOBAL_PARAM_STRING_VALUE = "eng";
 
