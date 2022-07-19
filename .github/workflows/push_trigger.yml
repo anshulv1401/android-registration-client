@@ -10,6 +10,7 @@ on:
       - 1.*
       - develop
       - sprint-*
+      - sonar_testing
 
 jobs:
   build-android:
