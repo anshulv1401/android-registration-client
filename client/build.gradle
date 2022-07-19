@@ -34,6 +34,10 @@ sonarqube {
                 '**/*test*/**,' +
                 '**/.gradle/**,' +
                 '**/R.class'
+
+        property "sonar.c.file.suffixes", "-"
+        property "sonar.cpp.file.suffixes", "-"
+        property "sonar.objc.file.suffixes", "-"
     }
 }
 
